@@ -35,7 +35,7 @@ public class Blind {
         Socket socket = null;
         try {
             // paul IP is 10.111.156.220
-            socket = new Socket("localhost", 5000);
+            socket = new Socket("10.111.109.240", 5000);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -58,6 +58,14 @@ public class Blind {
         };
         button.setBounds(600, 256, 128, 128);// x axis, y axis, width, height
         button.addActionListener(action);
+        button.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    blindChar.sendACK();
+                }
+            }
+        });
         JLabel instructions =  new JLabel("Listen to the statements by the dinosaurs and tell your teammate", JLabel.LEFT);
         JLabel instructions2 =  new JLabel("which one is lying by clicking the button.", JLabel.LEFT);
         instructions.setBounds(10, 0, 888, 40);
