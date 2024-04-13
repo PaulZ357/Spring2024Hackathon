@@ -27,7 +27,20 @@ public class Blind {
         return message;
     }
 
+    public void sendACK() {
+        tcpHandler.sendACK();
+    }
+
     public static void main(String[] args) {
+        Socket socket = null;
+        try {
+            socket = new Socket("Localhost", 5000);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Blind blindChar = new Blind(socket);
 
         JFrame frame = new JFrame("test");// creating instance of JFrame
         JButton button = new JButton();// creating instance of JButton
@@ -37,6 +50,8 @@ public class Blind {
         ActionListener action = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
+                blindChar.sendACK();
+                // System.out.println("In here");
 
             }
         };
@@ -46,16 +61,6 @@ public class Blind {
 
         frame.setVisible(true);// making the frame visible
 
-        Socket socket = null;
-        try {
-            socket = new Socket("10.111.156.220", 5000);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Blind blindChar = new Blind(socket);
         ExecutorService executor = Executors.newCachedThreadPool();
         executor.execute(blindChar.tcpHandler);
         // System.out.println(blindChar.received());

@@ -83,6 +83,16 @@ public class TCPHandler implements Runnable {
 
     }
 
+    public void sendACK() {
+        try {
+            out.writeUTF("Acknowledged");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     // the thread spins off and does this
     @Override
     public void run() {
@@ -123,6 +133,18 @@ public class TCPHandler implements Runnable {
                     throw new RuntimeException(e);
                 }
 
+            }
+        }
+        if (!blind) {
+            // System.out.println("In not blind");
+            while (true) {
+                try {
+                    // System.out.println("In not blind");
+                    String receivedString = in.readUTF();
+                    System.out.println(receivedString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
