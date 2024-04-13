@@ -38,6 +38,7 @@ public class Deaf
         }
         deaf = new Deaf(temp);
 
+
         JFrame frame = new JFrame("test");//creating instance of JFrame  
         Icon iconA = new ImageIcon("res/A.png");
         Icon iconB = new ImageIcon("res/B.png");

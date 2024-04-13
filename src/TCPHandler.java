@@ -14,22 +14,27 @@ public class TCPHandler implements Runnable
     private DataOutputStream out;
     private DataInputStream in;
 
-    // server data
     private ServerSocket serverSocket;
-
-    // spun off by client
+    
     public TCPHandler(Socket socket)
     {
-        this.client = true;
         this.socket = socket;
-        try
-        {
+        try {
             out = new DataOutputStream(this.socket.getOutputStream());
             in = new DataInputStream(this.socket.getInputStream());
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int receiveMessage() {
+        int received = 0;
+        try {
+            received = in.readInt();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return received;
     }
 
     // server starts off this one
@@ -62,17 +67,6 @@ public class TCPHandler implements Runnable
     @Override
     public void run()
     {
-        // if client
-        // if (client){
-        //     while (true){
 
-        //     }
-        // }
-        // // if server
-        // else {
-        //     while (true){
-
-        //     }
-        // }
     }
 }
