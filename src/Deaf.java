@@ -105,15 +105,17 @@ public class Deaf {
         ActionListener act4 = new ActionListener() { // SUBMITTING
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
-                JOptionPane.showMessageDialog(null, "Submitted answer "+answer);
                 if (answer == 1){
                     deaf.sendMessage(4);
+                    JOptionPane.showMessageDialog(null, "That was the right answer!");
                 }
                 else if (answer == 2) {
                     deaf.sendMessage(5);
+                    JOptionPane.showMessageDialog(null, "That was the wrong answer!");
                 }
                 else if (answer == 3){
                     deaf.sendMessage(6);
+                    JOptionPane.showMessageDialog(null, "That was the wrong answer!");
                 }
             }
         };
