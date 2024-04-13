@@ -9,7 +9,6 @@ public class Deaf
     private Socket socket;
     private TCPHandler tcpHandler;
 
-
     public Deaf(Socket socket)
     {
         this.socket = socket;
