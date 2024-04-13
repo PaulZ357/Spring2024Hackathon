@@ -13,6 +13,8 @@ public class Deaf
     private ServerSocket socket;
     private TCPHandler tcpHandler;
 
+    public static boolean buzzReceived = false;
+
 
     public Deaf(ServerSocket socket)
     {
@@ -26,6 +28,11 @@ public class Deaf
     {
         tcpHandler.sendHello();
     }
+
+    public void getBuzzReceived(){
+        Deaf.buzzReceived = tcpHandler.getBuzzReceived();
+    }
+
     public static void main(String[] args) {
         Deaf deaf;
         ServerSocket temp = null;
@@ -90,5 +97,20 @@ public class Deaf
         frame.add(button3);//adding button in JFrame
         
         frame.setVisible(true);//making the frame visible  
+
+        // use the swing worker to check for updates from TCPHandler 
+        SwingWorker<Void,Void> worker = new SwingWorker<Void,Void>() {
+
+            @Override
+            protected Void doInBackground() throws Exception {
+                while (true){
+                    if (Deaf.buzzReceived){
+                        System.out.println("Buzz received");
+                    }
+                }
+            }
+            
+        };
+        worker.execute();
     }
 }
