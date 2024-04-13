@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class DeafActionListener {
+public class Deaf {
     public static void main(String[] args) {
         JFrame frame = new JFrame("test");//creating instance of JFrame  
         JButton button = new JButton("click");//creating instance of JButton  
