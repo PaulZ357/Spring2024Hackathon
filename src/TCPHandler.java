@@ -85,7 +85,7 @@ public class TCPHandler implements Runnable {
 
     public void sendACK() {
         try {
-            out.writeUTF("Acknowledged");
+            out.writeUTF("ack");
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,7 +141,11 @@ public class TCPHandler implements Runnable {
                 try {
                     // System.out.println("In not blind");
                     String receivedString = in.readUTF();
-                    System.out.println(receivedString);
+                    // if the string is equal to "ack" then we will need to trigger a UI event
+                    if (receivedString.trim().equals("ack")){
+                        System.out.println(receivedString);
+                    }
+                    
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
