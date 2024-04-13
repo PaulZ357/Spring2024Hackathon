@@ -34,7 +34,8 @@ public class Blind {
     public static void main(String[] args) {
         Socket socket = null;
         try {
-            socket = new Socket("Localhost", 5000);
+            // paul IP is 10.111.156.220
+            socket = new Socket("localhost", 5000);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {

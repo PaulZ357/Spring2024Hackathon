@@ -127,9 +127,24 @@ public class TCPHandler implements Runnable {
                         clip = AudioSystem.getClip();
                         clip.open(audioInputStream);
                         clip.start();
-
                         received = 0;
                     }
+                     else if (received == 4){
+                        String filePath = "Clapping.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+                        received = 0;
+                     }
+                     else if (received == 5 || received == 6){
+                        String filePath = "sad.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+                        received = 0;
+                     }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

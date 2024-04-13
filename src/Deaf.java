@@ -106,6 +106,15 @@ public class Deaf {
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
                 JOptionPane.showMessageDialog(null, "Submitted answer "+answer);
+                if (answer == 1){
+                    deaf.sendMessage(4);
+                }
+                else if (answer == 2) {
+                    deaf.sendMessage(5);
+                }
+                else if (answer == 3){
+                    deaf.sendMessage(6);
+                }
             }
         };
 
@@ -209,25 +218,7 @@ public class Deaf {
         frame.add(greenPanel);
         frame.revalidate();
         frame.repaint();
-		// label.setBounds(100, 100, 75, 75);
-
-        // JPanel panel = new JPanel() {
-        //     @Override
-        //     protected void paintComponent(Graphics g) {
-        //         super.paintComponent(g);
-        //         g.setColor(Color.GREEN);
-        //         int diameter = 200; // Adjust size of circle
-        //         int x = (getWidth() - diameter) / 2;
-        //         int y = (getHeight() - diameter) / 2;
-        //         g.fillOval(x, y, diameter, diameter);
-        //     }
-        // };
-        // panel.setBounds(1000, 1000, 50, 50); // Set bounds for the panel
-        // System.out.println("Animation shown");
-
-        // frame.add(panel);
-        // frame.revalidate();
-        // frame.repaint();
+		
 
         Timer timer = new Timer(2000, new ActionListener() {
             @Override
