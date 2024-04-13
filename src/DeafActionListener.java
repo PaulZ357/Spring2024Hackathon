@@ -1,23 +1,8 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-
-public class Deaf
-{
-    //TCP
-    private Socket socket;
-    private TCPHandler tcpHandler;
-
-    public Deaf(Socket socket)
-    {
-        this.socket = socket;
-
-        tcpHandler = new TCPHandler(socket);
-    }
-
+public class Deaf {
     public static void main(String[] args) {
         JFrame frame = new JFrame("test");//creating instance of JFrame  
         JButton button = new JButton("click");//creating instance of JButton  
