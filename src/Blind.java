@@ -48,7 +48,7 @@ public class Blind {
 
         Socket socket = null;
         try {
-            socket = new Socket("10.111.109.240", 5000);
+            socket = new Socket("10.111.156.220", 5000);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
