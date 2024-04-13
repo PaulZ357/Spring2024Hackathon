@@ -1,11 +1,15 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Executable;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.swing.*;
-import java.awt.*;  
-import java.awt.event.*;  
+import java.awt.*;
+import java.awt.event.*;
 
 public class Blind {
     // TCP
@@ -25,16 +29,16 @@ public class Blind {
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("test");//creating instance of JFrame  
-        JButton button = new JButton();//creating instance of JButton
+        JFrame frame = new JFrame("test");// creating instance of JFrame
+        JButton button = new JButton();// creating instance of JButton
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // maximizes window
-        frame.setSize(400,500);//400 width and 500 height  
-        frame.setLayout(null);//using no layout managers 
-        
-        button.setBounds(600,256,128, 128);//x axis, y axis, width, height 
+        frame.setSize(400, 500);// 400 width and 500 height
+        frame.setLayout(null);// using no layout managers
+
+        button.setBounds(600, 256, 128, 128);// x axis, y axis, width, height
         frame.add(button);
-        
-        frame.setVisible(true);//making the frame visible  
+
+        frame.setVisible(true);// making the frame visible
 
         Socket socket = null;
         try {
@@ -46,7 +50,8 @@ public class Blind {
         }
 
         Blind blindChar = new Blind(socket);
-
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.execute(blindChar.tcpHandler);
         // System.out.println(blindChar.received());
     }
 }

@@ -1,12 +1,13 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
 
 public class TCPHandler implements Runnable {
 
@@ -87,6 +88,40 @@ public class TCPHandler implements Runnable {
     public void run() {
         if (blind) {
             while (true) {
+                try {
+                    int received = in.readInt();
+                    if (received == 1) {
+                        // System.out.println(received);
+                        // if (clip.isRunning()) {
+                        // clip.stop();
+                        // }
+                        String filePath = "GreenDinosaur.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+
+                        received = 0;
+                    } else if (received == 2) {
+                        String filePath = "BlueDinosaur.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+
+                        received = 0;
+                    } else if (received == 3) {
+                        String filePath = "BrownDinosaur.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+
+                        received = 0;
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
             }
         }
