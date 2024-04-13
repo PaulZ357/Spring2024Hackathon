@@ -73,9 +73,9 @@ public class TCPHandler implements Runnable {
         return temp;
     }
 
-    public void sendHello() {
+    public void sendMessage(int message) {
         try {
-            out.writeInt(1);
+            out.writeInt(message);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();

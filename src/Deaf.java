@@ -24,9 +24,9 @@ public class Deaf
         
     }
 
-    public void sendMessage()
+    public void sendMessage(int message)
     {
-        tcpHandler.sendHello();
+        tcpHandler.sendMessage(message);
     }
 
     public void getBuzzReceived(){
@@ -65,21 +65,25 @@ public class Deaf
         ActionListener act1 = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
-                JOptionPane.showMessageDialog(null, "Button1 clicked!");
-                deaf.sendMessage();
+                deaf.sendMessage(1);
+                JOptionPane.showMessageDialog(null, "Talked to Green Dinosaur");   
                 
             }
         };
         ActionListener act2 = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
-                JOptionPane.showMessageDialog(null, "Button2 clicked!");
+                deaf.sendMessage(2);
+                JOptionPane.showMessageDialog(null, "Talked to Blue Dinosaur");
+                
             }
         };
         ActionListener act3 = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
-                JOptionPane.showMessageDialog(null, "Button3 clicked!");
+                deaf.sendMessage(3 );
+                JOptionPane.showMessageDialog(null, "Talked to Brown Dinosaur");
+                
             }
         };
 
