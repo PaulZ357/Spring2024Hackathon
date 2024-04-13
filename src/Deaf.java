@@ -21,6 +21,8 @@ public class Deaf {
         this.socket = socket;
 
         tcpHandler = new TCPHandler(socket);
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.execute(tcpHandler);
 
     }
 
