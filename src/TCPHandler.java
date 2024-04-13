@@ -19,6 +19,8 @@ public class TCPHandler implements Runnable {
 
     private ServerSocket serverSocket;
 
+    private boolean clientBuzzReceived = false;
+
     // Audio
     AudioInputStream audioInputStream;
     Clip clip;
@@ -58,6 +60,16 @@ public class TCPHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // get buzz received and make it false
+    public boolean getBuzzReceived() {
+        boolean temp = this.clientBuzzReceived;
+        // if true, make it false
+        if (clientBuzzReceived) {
+            clientBuzzReceived = false;
+        }
+        return temp;
     }
 
     public void sendHello() {
