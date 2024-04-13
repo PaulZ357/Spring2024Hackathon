@@ -68,6 +68,7 @@ public class TCPHandler implements Runnable {
         boolean temp = this.clientBuzzReceived;
         // if true, make it false
         if (clientBuzzReceived) {
+            System.out.println("It was true");
             clientBuzzReceived = false;
         }
         return temp;
@@ -136,14 +137,14 @@ public class TCPHandler implements Runnable {
             }
         }
         if (!blind) {
-            // System.out.println("In not blind");
             while (true) {
                 try {
-                    // System.out.println("In not blind");
                     String receivedString = in.readUTF();
                     // if the string is equal to "ack" then we will need to trigger a UI event
                     if (receivedString.trim().equals("ack")){
                         System.out.println(receivedString);
+                        SharedData.DataHolder.sharedBoolean = true;
+                        
                     }
                     
                 } catch (IOException e) {

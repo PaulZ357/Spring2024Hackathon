@@ -31,8 +31,12 @@ public class Deaf {
         tcpHandler.sendMessage(message);
     }
 
-    public void getBuzzReceived() {
-        Deaf.buzzReceived = tcpHandler.getBuzzReceived();
+    public boolean getBuzzReceived(TCPHandler handler) {
+        return handler.getBuzzReceived();
+    }
+
+    public TCPHandler getTcpHandler(){
+        return this.tcpHandler;
     }
 
     public static void main(String[] args) {
@@ -177,13 +181,63 @@ public class Deaf {
             @Override
             protected Void doInBackground() throws Exception {
                 while (true) {
-                    if (Deaf.buzzReceived) {
-                        System.out.println("Buzz received");
+                    
+                    if (SharedData.DataHolder.sharedBoolean){
+                        showBuzzAnimation(frame);
+                        SharedData.DataHolder.sharedBoolean = false;
                     }
                 }
             }
 
         };
         worker.execute();
+    }
+
+    public static void showBuzzAnimation(JFrame frame) {
+
+        JPanel greenPanel = new JPanel();
+		greenPanel.setBackground(Color.green);
+		greenPanel.setBounds(600, 500, 200,200);
+		greenPanel.setLayout(new BorderLayout());
+
+        JLabel label = new JLabel();
+		label.setText("Your partner pressed the button!");
+		label.setVerticalAlignment(JLabel.CENTER);
+		label.setHorizontalAlignment(JLabel.CENTER);
+        greenPanel.add(label);
+
+        frame.add(greenPanel);
+        frame.revalidate();
+        frame.repaint();
+		// label.setBounds(100, 100, 75, 75);
+
+        // JPanel panel = new JPanel() {
+        //     @Override
+        //     protected void paintComponent(Graphics g) {
+        //         super.paintComponent(g);
+        //         g.setColor(Color.GREEN);
+        //         int diameter = 200; // Adjust size of circle
+        //         int x = (getWidth() - diameter) / 2;
+        //         int y = (getHeight() - diameter) / 2;
+        //         g.fillOval(x, y, diameter, diameter);
+        //     }
+        // };
+        // panel.setBounds(1000, 1000, 50, 50); // Set bounds for the panel
+        // System.out.println("Animation shown");
+
+        // frame.add(panel);
+        // frame.revalidate();
+        // frame.repaint();
+
+        Timer timer = new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.remove(greenPanel);
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 }
