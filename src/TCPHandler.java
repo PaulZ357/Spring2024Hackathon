@@ -31,6 +31,9 @@ public class TCPHandler implements Runnable {
 
     @Override
     public void run() {
+        while (true) {
+
+        }
 
     }
 }
