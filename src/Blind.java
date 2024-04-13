@@ -57,7 +57,15 @@ public class Blind {
         };
         button.setBounds(600, 256, 128, 128);// x axis, y axis, width, height
         button.addActionListener(action);
+        JLabel instructions =  new JLabel("Listen to the statements by the dinosaurs and tell your teammate", JLabel.LEFT);
+        JLabel instructions2 =  new JLabel("which one is lying by clicking the button.", JLabel.LEFT);
+        instructions.setBounds(10, 0, 888, 40);
+        instructions2.setBounds(10, 32, 888, 40);
+        instructions.setFont(new Font("Serif", Font.PLAIN, 32));
+        instructions2.setFont(new Font("Serif", Font.PLAIN, 32));
         frame.add(button);
+        frame.add(instructions);
+        frame.add(instructions2);
 
         frame.setVisible(true);// making the frame visible
 
