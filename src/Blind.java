@@ -33,6 +33,5 @@ public class Blind {
         Blind blindChar = new Blind(socket);
 
         // System.out.println(blindChar.received());
-
     }
 }

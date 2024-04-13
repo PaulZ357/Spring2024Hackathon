@@ -4,20 +4,26 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TCPHandler implements Runnable
-{
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+
+public class TCPHandler implements Runnable {
 
     // whether client or server
-    private boolean client = false;
-    //TCP connection
+    private boolean blind = false;
+    // TCP connection
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
 
     private ServerSocket serverSocket;
-    
-    public TCPHandler(Socket socket)
-    {
+
+    // Audio
+    AudioInputStream audioInputStream;
+    Clip clip;
+
+    public TCPHandler(Socket socket) {
         this.socket = socket;
         try {
             out = new DataOutputStream(this.socket.getOutputStream());
@@ -25,6 +31,7 @@ public class TCPHandler implements Runnable
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.blind = true;
     }
 
     public int receiveMessage() {
@@ -38,8 +45,8 @@ public class TCPHandler implements Runnable
     }
 
     // server starts off this one
-    public TCPHandler(ServerSocket socket){
-        this.client = false;
+    public TCPHandler(ServerSocket socket) {
+        this.blind = false;
         this.serverSocket = socket;
         // accept client, and update input/output streams
         try {
@@ -53,20 +60,23 @@ public class TCPHandler implements Runnable
         }
     }
 
-    public void sendHello(){
+    public void sendHello() {
         try {
             out.writeInt(1);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     // the thread spins off and does this
     @Override
-    public void run()
-    {
+    public void run() {
+        if (blind) {
+            while (true) {
 
+            }
+        }
     }
 }
