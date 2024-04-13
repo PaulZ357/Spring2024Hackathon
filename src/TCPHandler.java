@@ -1,15 +1,19 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TCPHandler implements Runnable
-{
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.*;
+
+public class TCPHandler implements Runnable {
 
     // whether client or server
-    private boolean client = false;
-    //TCP connection
+    private boolean blind = false;
+    // TCP connection
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
@@ -17,9 +21,12 @@ public class TCPHandler implements Runnable
     private ServerSocket serverSocket;
 
     private boolean clientBuzzReceived = false;
-    
-    public TCPHandler(Socket socket)
-    {
+
+    // Audio
+    AudioInputStream audioInputStream;
+    Clip clip;
+
+    public TCPHandler(Socket socket) {
         this.socket = socket;
         try {
             out = new DataOutputStream(this.socket.getOutputStream());
@@ -27,6 +34,7 @@ public class TCPHandler implements Runnable
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.blind = true;
     }
 
     public int receiveMessage() {
@@ -40,8 +48,8 @@ public class TCPHandler implements Runnable
     }
 
     // server starts off this one
-    public TCPHandler(ServerSocket socket){
-        this.client = false;
+    public TCPHandler(ServerSocket socket) {
+        this.blind = false;
         this.serverSocket = socket;
         // accept client, and update input/output streams
         try {
@@ -56,29 +64,88 @@ public class TCPHandler implements Runnable
     }
 
     // get buzz received and make it false
-    public boolean getBuzzReceived(){
+    public boolean getBuzzReceived() {
         boolean temp = this.clientBuzzReceived;
         // if true, make it false
-        if (clientBuzzReceived){
+        if (clientBuzzReceived) {
             clientBuzzReceived = false;
         }
         return temp;
     }
 
-    public void sendHello(){
+    public void sendMessage(int message) {
         try {
-            out.writeInt(1);
+            out.writeInt(message);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
+    }
+
+    public void sendACK() {
+        try {
+            out.writeUTF("Acknowledged");
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // the thread spins off and does this
     @Override
-    public void run()
-    {
+    public void run() {
+        if (blind) {
+            while (true) {
+                try {
+                    int received = in.readInt();
+                    if (received == 1) {
+                        // System.out.println(received);
+                        // if (clip.isRunning()) {
+                        // clip.stop();
+                        // }
+                        String filePath = "GreenDinosaur.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
 
+                        received = 0;
+                    } else if (received == 2) {
+                        String filePath = "BlueDinosaur.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+
+                        received = 0;
+                    } else if (received == 3) {
+                        String filePath = "BrownDinosaur.wav";
+                        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath));
+                        clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.start();
+
+                        received = 0;
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
+        if (!blind) {
+            // System.out.println("In not blind");
+            while (true) {
+                try {
+                    // System.out.println("In not blind");
+                    String receivedString = in.readUTF();
+                    System.out.println(receivedString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
