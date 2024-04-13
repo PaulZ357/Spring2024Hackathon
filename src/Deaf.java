@@ -1,6 +1,7 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.*;
 import java.awt.*;  
@@ -9,17 +10,35 @@ import java.awt.event.*;
 public class Deaf
 {
     //TCP
-    private Socket socket;
+    private ServerSocket socket;
     private TCPHandler tcpHandler;
 
-    public Deaf(Socket socket)
+
+    public Deaf(ServerSocket socket)
     {
         this.socket = socket;
 
         tcpHandler = new TCPHandler(socket);
+        
     }
 
+    public void sendMessage()
+    {
+        tcpHandler.sendHello();
+    }
     public static void main(String[] args) {
+        Deaf deaf;
+        ServerSocket temp = null;
+
+        try {
+            temp = new ServerSocket(5000);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        deaf = new Deaf(temp);
+
+
         JFrame frame = new JFrame("test");//creating instance of JFrame  
         Icon iconA = new ImageIcon("res/A.png");
         Icon iconB = new ImageIcon("res/B.png");
@@ -40,6 +59,8 @@ public class Deaf
             public void actionPerformed(ActionEvent e) {
                 // Define what happens when the button is clicked
                 JOptionPane.showMessageDialog(null, "Button1 clicked!");
+                deaf.sendMessage();
+                
             }
         };
         ActionListener act2 = new ActionListener() {
