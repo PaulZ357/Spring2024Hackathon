@@ -30,8 +30,14 @@ public class Blind {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // maximizes window
         frame.setSize(400,500);//400 width and 500 height  
         frame.setLayout(null);//using no layout managers 
-        
+        ActionListener action = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Define what happens when the button is clicked
+                
+            }
+        };
         button.setBounds(600,256,128, 128);//x axis, y axis, width, height 
+        button.addActionListener(action);
         frame.add(button);
         
         frame.setVisible(true);//making the frame visible  
