@@ -2,6 +2,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.*;
+
 
 public class Deaf
 {
@@ -15,8 +17,6 @@ public class Deaf
 
         tcpHandler = new TCPHandler(socket);
     }
-
-import javax.swing.*;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();//creating instance of JFrame
