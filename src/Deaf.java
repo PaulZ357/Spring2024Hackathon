@@ -54,9 +54,13 @@ public class Deaf
         JButton button2 = new JButton(iconB);//creating instance of JButton
         JButton button3 = new JButton(iconC);//creating instance of JButton
         
+        String text = "Click on the dinosaurs so that your teammate"+"can hear what they have to say, and determine which one of them is lying.";
+        //JLabel label = new JLabel(text,JLabel.LEFT);
         JLabel label = new JLabel();
-        label.setText("test");
-        label.setBounds(0, 0, 0, 0);
+        JTextArea textarea = new JTextArea(text);
+        label.setBounds(0, 0, 840, 256);
+        //label.setFont(new Font("Serif", Font.PLAIN, 32));
+        label.add(textarea);
 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // maximizes window
         frame.setSize(400,500);//400 width and 500 height  
@@ -95,8 +99,17 @@ public class Deaf
         frame.add(button);//adding button in JFrame
         frame.add(button2);//adding button in JFrame
         frame.add(button3);//adding button in JFrame
-        
+        frame.add(label);
+
         frame.setVisible(true);//making the frame visible  
+
+        JRadioButton optionA = new JRadioButton();
+        JRadioButton optionB = new JRadioButton();
+        JRadioButton optionC = new JRadioButton();
+        ButtonGroup group = new ButtonGroup();
+        group.add(optionA);
+        group.add(optionB);
+        group.add(optionC);
 
         // use the swing worker to check for updates from TCPHandler 
         SwingWorker<Void,Void> worker = new SwingWorker<Void,Void>() {
