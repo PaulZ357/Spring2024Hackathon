@@ -39,9 +39,12 @@ public class Deaf
         deaf = new Deaf(temp);
 
         JFrame frame = new JFrame("test");//creating instance of JFrame  
-        JButton button = new JButton("click");//creating instance of JButton  
-        JButton button2 = new JButton("click");//creating instance of JButton
-        JButton button3 = new JButton("click");//creating instance of JButton
+        Icon iconA = new ImageIcon("res/A.png");
+        Icon iconB = new ImageIcon("res/B.png");
+        Icon iconC = new ImageIcon("res/C.png");
+        JButton button = new JButton(iconA);//creating instance of JButton  
+        JButton button2 = new JButton(iconB);//creating instance of JButton
+        JButton button3 = new JButton(iconC);//creating instance of JButton
         
         JLabel label = new JLabel();
         label.setText("test");
@@ -72,13 +75,13 @@ public class Deaf
             }
         };
 
-        button.setBounds(300,256,100, 40);//x axis, y axis, width, height 
+        button.setBounds(300,256,128, 128);//x axis, y axis, width, height 
         button.addActionListener(act1);
         
-        button2.setBounds(600,256,100, 40);//x axis, y axis, width, height 
+        button2.setBounds(600,256,128, 128);//x axis, y axis, width, height 
         button2.addActionListener(act2);
         
-        button3.setBounds(900,256,100, 40);//x axis, y axis, width, height 
+        button3.setBounds(900,256,128, 128);//x axis, y axis, width, height 
         button3.addActionListener(act3);
 
         frame.add(button);//adding button in JFrame
